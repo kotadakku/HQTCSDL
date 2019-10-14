@@ -5,6 +5,7 @@ include 'connection/connection.php';
 
 $MAND = $_REQUEST['cid'];
 $MaH = $_REQUEST['pid'];
+echo $MAND.$MaH;
 $SLMua = (int) $_REQUEST['quantity'];
 
 $query = "SELECT *  FROM HANG WHERE MaH = '$MaH'";

@@ -40,24 +40,25 @@ include 'connection/connection.php';
 				</div>
 				<div class="clearfix"></div>
 				<?php
-					#where category='$cat'
-						$query= "SELECT TheLoai FROM HANG GROUP BY TheLoai";
+						$query= "SELECT MaL, TenL FROM view_HANG GROUP BY MaL,TenL";
 						$result= @sqlsrv_query($conn,$query);
 
 						 while($rows1 = @sqlsrv_fetch_array($result,SQLSRV_FETCH_ASSOC)) {
-						 	$theloai = $rows1['TheLoai'];
+						 	$maloai = $rows1['MaL'];
+						 	$tenloai= $rows1['TenL'];
 
 					?>
-				<label for="" name=""><?php echo $theloai; ?></label>
-			
+				
+			   <label for="" name=""><?php echo $tenloai; ?></label>
 				<ul>
 					<?php
 					#where category='$cat'
-						$query1= "SELECT * FROM HANG where TheLoai='$theloai'";
+						$query1= "SELECT * FROM view_HANG where MaL='$maloai'";
 						$result1= @sqlsrv_query($conn,$query1);
 
 						 while($rows = @sqlsrv_fetch_array($result1,SQLSRV_FETCH_ASSOC)) {
 					?>
+
 					<li>
 						<a class="cbp-vm-image" href="single.php?pid=<?php echo $rows['MaH']; ?>">
 						<div class="simpleCart_shelfItem">

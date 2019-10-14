@@ -4,7 +4,7 @@
 //$paid = 'no';
 $MaH = $_REQUEST['pid'];
 // $q = "SELECT * FROM products";
-$query = "SELECT * FROM HANG where MaH='$MaH'";
+$query = "SELECT * FROM view_HANG where MaH='$MaH'";
 $result = sqlsrv_query($conn,$query);
 $rows3 = sqlsrv_fetch_array($result);
 ?>
@@ -62,7 +62,7 @@ $rows3 = sqlsrv_fetch_array($result);
 					</div>
 					<div class="span span1">
 						<p class="left">Thể loại</p>
-						<p class="right"><?php echo $rows3['TheLoai']; ?></p>
+						<p class="right"><?php echo $rows3['TenL']; ?></p>
 						<div class="clearfix"></div>
 					</div>
 					<div class="span span2">

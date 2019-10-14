@@ -54,20 +54,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			});
 			</script>
 			<?php
-			// //WHERE customers.customerid = '$id' and cart.paid != '$paid' order by cart.cid DESC
-			// 
+			
 			$email = $_SESSION['email'];
-$query2 = "SELECT * from NGUOIDUNG where email='$email'";
-$result2= sqlsrv_query($conn, $query2);
-while($rows2 = sqlsrv_fetch_array($result2, SQLSRV_FETCH_ASSOC)){
-  $MAND =$rows2['MAND'];
-}
-			 $query = "SELECT * from DONHANG inner join HANG on DONHANG.MaH= HANG.MaH inner join NGUOIDUNG on NGUOIDUNG.MaND=DONHANG.MaND WHERE NGUOIDUNG.MaND = '$MAND' and DONHANG.TrangThai != '1' ";
+			$query2 = "SELECT * from NGUOIDUNG where email='$email'";
+			$result2= sqlsrv_query($conn, $query2);
+			while($rows2 = sqlsrv_fetch_array($result2, SQLSRV_FETCH_ASSOC)){
+			  $MAND =$rows2['MAND'];
+			}
+			$query="SELECT * from view_DS_DONHANG where MaND='$MAND'";
 			  $result = sqlsrv_query($conn,$query);
 			 while($rows1 = sqlsrv_fetch_array($result)) :
 			?>
 			<div  class="cart-header3">
-          		<a href="deletecart.php?cid=<?php echo $rows1['MaND']; ?>&pid=<?php echo $rows1['MaH']; ?>&quantity=<?php echo $rows1['SLMua']; ?>">
+          		<a href="deletecart.php?cid=<?php echo $rows1['MAND']; ?>&pid=<?php echo $rows1['MaH']; ?>&quantity=<?php echo $rows1['SLMua']; ?>">
           			<button style="float:right; margin-top:30px;margin-right:20px;"type="button" class="btn btn-danger right">Xóa sản phẩm</button></a>
 				<div class="cart-sec simpleCart_shelfItem">
 					<div  class="cart-item cyc">
@@ -89,19 +88,24 @@ while($rows2 = sqlsrv_fetch_array($result2, SQLSRV_FETCH_ASSOC)){
 
 			?>
 	        <?php
-	        $email = $_SESSION['email'];
-$query2 = "SELECT * from NGUOIDUNG where email='$email'";
-$result2= sqlsrv_query($conn, $query2);
-while($rows2 = sqlsrv_fetch_array($result2, SQLSRV_FETCH_ASSOC)){
-  $MAND =$rows2['MAND'];
-}
-	         $query1 = "SELECT  sum(TongTien) as sum from DONHANG  WHERE MaND = '$MAND' and TrangThai != '1'";
-	         $result1= sqlsrv_query($conn, $query1);
-	         $rows1 =sqlsrv_fetch_array($result1);
+			$email = $_SESSION['email'];
+			$query2 = "SELECT * from NGUOIDUNG where email='$email'";
+			$result2= sqlsrv_query($conn, $query2);
+			while($rows2 = sqlsrv_fetch_array($result2, SQLSRV_FETCH_ASSOC)){
+			  $MAND =$rows2['MAND'];
+			}
+			$tsql_callSP = "{call sp_TongTien_DonHang( ?, ? )}";
+			$Tong = 0.0;  
+			$params = array(   
+			                 array($MAND, SQLSRV_PARAM_IN),  
+			                 array(&$Tong, SQLSRV_PARAM_OUT)  
+			               );  
+			  
+			$stmt3 = sqlsrv_query( $conn, $tsql_callSP, $params);  
 	         echo '<div class="cart-item-info">
 						<ul class="qty">
 							<li><p>Số tiền cần thanh toán là: </p></li>
-              				<li><p>'.$rows1['sum'].'</p> VND</li>
+              				<li><p>'.$Tong.'  VND</p> </li>
 						</ul>
 					</div>';
 

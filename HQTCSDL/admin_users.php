@@ -7,7 +7,6 @@ include 'connection/connection.php';
   // 	header("location: index.php");
   // }
 
-$cat = $_REQUEST['category'];
 ?>
 
 <!DOCTYPE html>
@@ -54,30 +53,34 @@ $cat = $_REQUEST['category'];
 
 	<div class="table-responsive|table-responsive-sm|table-responsive-md|table-responsive-lg|table-responsive-xl">
 		<table class="table table-striped|table-dark|table-bordered|table-borderless|table-hover|table-sm">
-		  <caption> <center>Danh sách hàng hóa</center></caption>
+		  <caption> <center>Danh sách người dùng</center></caption>
 		  <thead class="thead-dark|thead-light">
 		    <tr>
-		      <th scope="col">Mã hàng</th>
-		      <th scope="col">Tên Hàng</th>
-		      <th scope="col">Giá</th>
-		      <th scope="col">Số lượng còn</th>
+		      <th scope="col">Mã số</th>
+		      <th scope="col">Họ Tên</th>
+		      <th scope="col">Email</th>
+		      <th scope="col">Số điện thoại</th>
+		      <th scope="col">Vài trò</th>
+		      <th scope="col">Địa Chỉ</th>
 		      <th></th>
 		      <th></th>
 		    </tr>
 		  </thead>
 		  <tbody>
 		  	<?php
-						$query = "SELECT * FROM HANG WHERE THELOAI = '$cat'";
+						$query = "SELECT * FROM NGUOIDUNG";
 						$result = sqlsrv_query($conn, $query);
 						while($rows = sqlsrv_fetch_array($result)) :
 						?>
 		    <tr>
-		      <th scope="row"><?php echo $rows['MaH']; ?></th>
-		      <td><?php echo $rows['TenH']; ?></td>
-		      <td><?php echo $rows['Gia']; ?></td>
-		      <td><?php echo $rows['SlCon']; ?></td>
-		      <td><a class="cbp-vm-icon cbp-vm-add item_add" style ="margin-top: 0px !important" href="admin_delete.php?pid=<?php echo $rows['MaH'];?>&cat=<?php echo $rows['TheLoai']; ?>">Xóa sản phẩm</a></td>
-		      <td><a class="cbp-vm-icon cbp-vm-add item_add" style ="margin-top: 0px !important" href="admin_update.php?pid=<?php echo $rows['MaH'];?>">Sửa sản phẩm</a></td>
+		      <th scope="row"><?php echo $rows['MAND']; ?></th>
+		      <td><?php echo $rows['HoTen']; ?></td>
+		      <td><?php echo $rows['Email']; ?></td>
+		      <td><?php echo $rows['SDT']; ?></td>
+		      <td><?php echo $rows['VaiTro']; ?></td>
+		      <td><?php echo $rows['DiaChi']; ?></td>
+		      <td><a class="cbp-vm-icon cbp-vm-add item_add" style ="margin-top: 0px !important" href="admin_users_delete.php?cid=<?php echo $rows['MAND'];?>">Xóa người dùng</a></td>
+		      <td><a class="cbp-vm-icon cbp-vm-add item_add" style ="margin-top: 0px !important" href="admin_users_update.php?cid=<?php echo $rows['MAND'];?>">Sửa thông tin</a></td>
 
 		    </tr>
 		<?php endwhile ?>
