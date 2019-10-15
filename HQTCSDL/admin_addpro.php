@@ -36,7 +36,7 @@ $HinhAnh = "http://localhost/HQTCSDL/images/".$name;
 
 
 
-$query = "INSERT into HANG (TenH,HinhAnh,SlCon,MaL,Gia,ChiTiet) values ('$TenH','$HinhAnh','$SlCon','$TheLoai','$Gia',' $ChiTiet')";
+$query = "INSERT into HANG (TenH,HinhAnh,SlCon,MaL,Gia,ChiTiet) values ( N'$TenH', N'$HinhAnh','$SlCon','$TheLoai','$Gia',N'$ChiTiet')";
 
 $run = sqlsrv_query($conn, $query);
 

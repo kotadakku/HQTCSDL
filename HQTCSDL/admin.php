@@ -59,8 +59,11 @@ else
   </div>
   <div class="tab-content">
   	<a href="admin_products.php">Quản lý sản phẩm</a><br>
+  	<?php  if($_SESSION['vaitro']=='kho' or $_SESSION['vaitro']=='admin') {
+		?>
 	<a href="admin_add.php">Thêm mới sản phẩm</a><br>
-	<?php  if($_SESSION['vaitro']=='phuvu' or $_SESSION['vaitro']=='admin') {
+<?php } ?>
+	<?php  if($_SESSION['vaitro']=='phucvu' or $_SESSION['vaitro']=='admin') {
 		?>
 	<a href="admin_users.php">Quản lý người dùng</a>
 <?php }?>

@@ -32,7 +32,7 @@ $HinhAnh = "http://localhost/HQTCSDL/images/".$name;
 
 
 
-$query = "UPDATE HANG set TenH = '$TenH', HinhAnh = '$HinhAnh', SlCon = '$SlCon', MaL = '$TheLoai', Gia = '$Gia', ChiTiet = '$ChiTiet' where MaH = '$MaH'";
+$query = "UPDATE HANG set TenH = N'$TenH', HinhAnh = N'$HinhAnh', SlCon = '$SlCon', MaL = N'$TheLoai', Gia = '$Gia', ChiTiet = N'$ChiTiet' where MaH = '$MaH'";
 $run = sqlsrv_query($conn, $query);
 if($run) {
 

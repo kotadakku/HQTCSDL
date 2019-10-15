@@ -85,7 +85,7 @@ $rows = sqlsrv_fetch_array($result);
             			<div>
               				<div class="clearfix"></div>
             				<p class="left">Email</p>
-            				<input type="text" name="email" value="<?php echo $rows['Email']; ?>">
+            				<input type="text" name="email" <?php if($_SESSION['vaitro']!='admin') echo 'readonly="readonly"' ?> value="<?php echo $rows['Email']; ?>">
             			</div>
 						<div class="span span1">
 							<div class="clearfix"></div>
@@ -94,7 +94,7 @@ $rows = sqlsrv_fetch_array($result);
 						</div>
 						<div class="span span2">
 							<p class="left">Mật khẩu</p>
-							<input type="password" name="mk" value="<?php echo $rows['MatKhau']; ?>">
+							<input type="password" <?php if($_SESSION['vaitro']!='admin') echo 'readonly="readonly"' ?> name="mk" value="<?php echo $rows['MatKhau']; ?>">
 							<div class="clearfix"></div>
 						</div>
 						<div class="span span3">
@@ -102,7 +102,7 @@ $rows = sqlsrv_fetch_array($result);
 							<input type="text" name="dc" value="<?php echo $rows['DiaChi']; ?>">
 							<div class="clearfix"></div>
 						</div>
-						<?php if($_SESSION['vaitro'])
+						<?php if($_SESSION['vaitro']=='admin')
 						{ ?>
 						<div class="span span4">
 							<p class="left">Vai trò</p><br>

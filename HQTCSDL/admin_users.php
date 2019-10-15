@@ -74,7 +74,13 @@ else
 		  </thead>
 		  <tbody>
 		  	<?php
-						$query = "SELECT * FROM NGUOIDUNG";
+		  	if($_SESSION['vaitro']=='admin')
+		  	{
+		  	    $vaitro ='';
+		  	}
+		  	else $vaitro =" where VaiTro ='khachhang'";
+  
+						$query = "SELECT * FROM NGUOIDUNG ".$vaitro;
 						$result = sqlsrv_query($conn, $query);
 						while($rows = sqlsrv_fetch_array($result)) :
 						?>
@@ -85,7 +91,7 @@ else
 		      <td><?php echo $rows['SDT']; ?></td>
 		      <td><?php echo $rows['VaiTro']; ?></td>
 		      <td><?php echo $rows['DiaChi']; ?></td>
-		      <td><a class="cbp-vm-icon cbp-vm-add item_add" style ="margin-top: 0px !important" href="admin_users_delete.php?cid=<?php echo $rows['MAND'];?>">Xóa người dùng</a></td>
+		      <td><a class="cbp-vm-icon cbp-vm-add item_add" style ="margin-top: 0px !important; <?php if($_SESSION['vaitro']=='phucvu') echo 'display: none' ?>" href="admin_users_delete.php?cid=<?php echo $rows['MAND'];?>">Xóa người dùng</a></td>
 		      <td><a class="cbp-vm-icon cbp-vm-add item_add" style ="margin-top: 0px !important" href="admin_users_update.php?cid=<?php echo $rows['MAND'];?>">Sửa thông tin</a></td>
 
 		    </tr>

@@ -10,7 +10,6 @@ include 'connection/connection.php';
  $diachi = $_POST['diachi'];
 
  $password = password_hash($pass, PASSWORD_DEFAULT);
- echo $password;
 
   $query1 = "SELECT * FROM NGUOIDUNG WHERE Email = '$email'";
   $result1= sqlsrv_query($conn,$query1);
@@ -22,7 +21,7 @@ include 'connection/connection.php';
  else {
    echo $password.$name.$phone.$email.$diachi.$pass;
 
-   $query = "INSERT into NGUOIDUNG(HoTen,SDT,MatKhau,Email,DiaChi) values ('$name','$phone','$password','$email','$diachi')";
+   $query = "INSERT into NGUOIDUNG(HoTen,SDT,MatKhau,Email,DiaChi, VaiTro) values (N'$name','$phone','$password','$email',N'$diachi', 'khachhang')";
 
 $result= sqlsrv_query($conn,$query);
 
