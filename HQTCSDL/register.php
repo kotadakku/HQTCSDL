@@ -7,29 +7,24 @@ include 'connection/connection.php';
  $phone = $_POST['phone'];
  $pass = $_POST['password'];
  $email = $_POST['email'];
+ $diachi = $_POST['diachi'];
+
+ $password = password_hash($pass, PASSWORD_DEFAULT);
+ echo $password;
 
   $query1 = "SELECT * FROM NGUOIDUNG WHERE Email = '$email'";
-  $result1= sqlsrv_query($connectionInfo,$query1);
-  // $stm = $conn->prepare("SELECT * FROM customers WHERE email = '$email'");
-  // // $stm->bindParam(1,$_POST['email']);
-  //  $stm->execute();
+  $result1= sqlsrv_query($conn,$query1);
     $ze = sqlsrv_num_rows($result1);
   if( $ze > 0)
   {
- header("location: invalid.php");
+ echo 'error';
   }
  else {
+   echo $password.$name.$phone.$email.$diachi.$pass;
 
-   $query = "INSERT into NGUOIDUNG(HoTen,MatKhau,Email,SDT) values ($name','$phone','$pass','$email')";
-
- // $run = $conn->prepare($query);
- // $run->bindparam(1,$name);
- // $run->bindparam(2,$pass);
- // $run->bindparam(3,$email);
- // $run->bindparam(4,$phone);
+   $query = "INSERT into NGUOIDUNG(HoTen,SDT,MatKhau,Email,DiaChi) values ('$name','$phone','$password','$email','$diachi')";
 
 $result= sqlsrv_query($conn,$query);
-  // $run->execute();
 
  if($result) {
  }
@@ -38,5 +33,5 @@ $_SESSION['name'] = $name;
 
 	header("location: index.php");
 
-}
+ }
  ?>

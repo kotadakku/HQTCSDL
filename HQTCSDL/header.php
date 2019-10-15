@@ -1,7 +1,7 @@
 <?php
 
     session_start();
-    include_once 'connection/connection.php';    
+    include_once 'connection/connection.php';
     $q = "SELECT * from HANG";
     $result= sqlsrv_query($conn,$q);
     $rows= sqlsrv_fetch_array( $result, SQLSRV_FETCH_ASSOC);    
@@ -40,15 +40,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <ul>
                         <?php if(isset($_SESSION['name']))
                                 {
-                                    echo '<li><a href=""><span class="glyphicon glyphicon-user"> '.$_SESSION['name'].'
-                        </span>
+                                    echo '<li><a href=""><span class="glyphicon glyphicon-user"></span> '.$_SESSION['name'].'
+                        
                         </a></li>
                         <li><a href="logout.php"><span class="glyphicon glyphicon-reply"> </span>Đăng xuất</a></li>'; 
                                 }
                                 else
                                 {
-                                    echo '<li><a href="account.html"><span class="glyphicon glyphicon-user">Đăng nhập
-                        </span>
+                                    echo '<li><a href="account.html"><span class="glyphicon glyphicon-user"></span>Đăng nhập
+                        
                         </a></li>
                         <li><a href="register.html"><span class="glyphicon glyphicon-reply"> </span>Tạo tài khoản</a></li>'; 
                                 }
@@ -78,8 +78,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li><a href="index.php">Trang chủ</a></li>
-                        <li><a href="products.php?category=books">Mua sắm</a></li>
-                        <li><a href="admin.php">Admin Page</a></li>
+                        <li><a href="products.php">Mua sắm</a></li>
+                        <?php if(isset($_SESSION['vaitro']) and ($_SESSION['vaitro']=='admin' or $_SESSION['vaitro']=='kho' or $_SESSION['vaitro']=='phucvu') )
+                        echo '<li><a href="admin.php">Admin Page</a></li>';
+                        ?>
+                        
                         <li><a href="checkout.php" >Giỏ hàng</a></li>
                     </ul>
                 </div>

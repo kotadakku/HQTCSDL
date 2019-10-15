@@ -42,13 +42,7 @@ $rows3 = sqlsrv_fetch_array($result);
 					<div class="flexslider">
 						<ul class="slides">
 							<li data-thumb="<?php echo $rows['HinhAnh']; ?>">
-								<div class="thumb-image"> <img src="<?php echo $rows3['HinhAnh']; ?>" data-imagezoom="true" class="img-responsive" alt="" /> </div>
-							</li>
-							<li data-thumb="<?php echo $rows['image2']; ?>">
-								<div class="thumb-image"> <img src="<?php echo $rows3['HinhAnh']; ?>" data-imagezoom="true" class="img-responsive" alt="" /> </div>
-							</li>
-							<li data-thumb="<?php echo $rows['image3']; ?>">
-								<div class="thumb-image"> <img src="<?php echo $rows3['HinhAnh']; ?>" data-imagezoom="true" class="img-responsive" alt="" /> </div>
+								<div class="thumb-image"> <img  src="<?php echo $rows3['HinhAnh']; ?>" data-imagezoom="true" class="img-responsive" alt="<?php echo $rows3['TenH']; ?>" /> </div>
 							</li>
 						</ul>
 					</div>

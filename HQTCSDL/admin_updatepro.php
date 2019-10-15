@@ -2,17 +2,26 @@
 
 include 'connection/connection.php';
  session_start();
+ if(isset($_SESSION['vaitro']))
+{
+
+   if($_SESSION['vaitro']!='admin' and $_SESSION['vaitro']!='kho' and $_SESSION['vaitro']!='phucvu')
+   {
+   	header("location: account.html");
+   }
+}
+else
+{
+	header("location: account.html");
+}
 
  $MaH = $_POST['pid'];
  $TenH = $_POST['name'];
  $Gia = $_POST['price'];
  $TheLoai = $_POST['category'];
-
 $ChiTiet = $_POST['detail'];
 
-
 $SlCon = $_POST['quantity'];
-$year = $_POST['year'];
 
 $name=$_FILES['file']['name'];
   $size=$_FILES['file']['size'];
@@ -23,11 +32,11 @@ $HinhAnh = "http://localhost/HQTCSDL/images/".$name;
 
 
 
-$query = "UPDATE HANG set TenH = '$TenH', HinhAnh = '$HinhAnh', SlCon = '$SlCon', TheLoai = '$TheLoai', Gia = '$Gia', ChiTiet = '$ChiTiet' where MaH = '$MaH'";
+$query = "UPDATE HANG set TenH = '$TenH', HinhAnh = '$HinhAnh', SlCon = '$SlCon', MaL = '$TheLoai', Gia = '$Gia', ChiTiet = '$ChiTiet' where MaH = '$MaH'";
 $run = sqlsrv_query($conn, $query);
 if($run) {
 
-header("location: admin_single.php?pid=$MaH");
+header("location: admin_users.php");
 }
 
 

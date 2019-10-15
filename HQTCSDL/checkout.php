@@ -70,7 +70,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
           			<button style="float:right; margin-top:30px;margin-right:20px;"type="button" class="btn btn-danger right">Xóa sản phẩm</button></a>
 				<div class="cart-sec simpleCart_shelfItem">
 					<div  class="cart-item cyc">
-						<img   src="<?php echo $rows1['HinhAnh']; ?>" class="img-responsive" alt="">
+						<img   src="<?php echo $rows1['HinhAnh']; ?>" class="img-responsive" alt="<?php echo $rows1['TenH']; ?>">
 					</div>
 					<div class="cart-item-info">
 						<h3><a href="#"> <?php echo $rows1['TenH']; ?></a><span></span></h3>

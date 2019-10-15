@@ -3,6 +3,19 @@
 include 'connection/connection.php';
  session_start();
 
+ if(isset($_SESSION['vaitro']))
+{
+
+   if($_SESSION['vaitro']!='admin' and $_SESSION['vaitro']!='kho' and $_SESSION['vaitro']!='phucvu')
+   {
+   	header("location: account.html");
+   }
+}
+else
+{
+	header("location: account.html");
+}
+
  $TenH = $_POST['name'];
  $Gia = $_POST['price'];
  $TheLoai = $_POST['category'];
@@ -23,21 +36,12 @@ $HinhAnh = "http://localhost/HQTCSDL/images/".$name;
 
 
 
-$query = "INSERT into HANG (TenH,HinhAnh,SlCon,TheLoai,Gia,ChiTiet) values ('$TenH','$HinhAnh','$SlCon','$TheLoai','$Gia',' $ChiTiet')";
+$query = "INSERT into HANG (TenH,HinhAnh,SlCon,MaL,Gia,ChiTiet) values ('$TenH','$HinhAnh','$SlCon','$TheLoai','$Gia',' $ChiTiet')";
 
 $run = sqlsrv_query($conn, $query);
 
 if($run) {
 
-header("location: admin_products.php?category=$TheLoai");
+header("location: admin_add.php");
 }
-
-
-
-
-
-
-
-
-
  ?>

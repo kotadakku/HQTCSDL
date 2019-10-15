@@ -1,6 +1,8 @@
- <?php
+
+<?php
 include 'connection/connection.php';
  session_start();
+
 if(isset($_SESSION['vaitro']))
 {
 
@@ -14,12 +16,14 @@ else
 	header("location: account.html");
 }
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
-<title>Shop</title>
-<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+	<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="js/jquery.min.js"></script>
 <!-- Custom Theme files -->
@@ -40,7 +44,6 @@ else
 <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
 </head>
 <body>
-	<!-- header-section-starts -->
 	<div class="header ">
     <div class="header-top-strip">
       <div class="container">
@@ -54,43 +57,19 @@ else
       </div>
     </div>
   </div>
-	<!-- header-section-ends -->	
+  <div class="tab-content">
+  	<a href="admin_products.php">Quản lý sản phẩm</a><br>
+	<a href="admin_add.php">Thêm mới sản phẩm</a><br>
+	<?php  if($_SESSION['vaitro']=='phuvu' or $_SESSION['vaitro']=='admin') {
+		?>
+	<a href="admin_users.php">Quản lý người dùng</a>
+<?php }?>
+<br>
+<?php  if($_SESSION['vaitro']=='admin') {
+		?>
+	<a href="admin_users.php">Thống kê</a>
+<?php }?>
 
-<a href="admin.php">Trở về trang trước</a>
-	<div class="table-responsive|table-responsive-sm|table-responsive-md|table-responsive-lg|table-responsive-xl">
-		<table class="table table-striped|table-dark|table-bordered|table-borderless|table-hover|table-sm">
-		  <caption> <center>Danh sách người dùng</center></caption>
-		  <thead class="thead-dark|thead-light">
-		    <tr>
-		      <th scope="col">Mã số</th>
-		      <th scope="col">Họ Tên</th>
-		      <th scope="col">Email</th>
-		      <th scope="col">Số điện thoại</th>
-		      <th scope="col">Vài trò</th>
-		      <th scope="col">Địa Chỉ</th>
-		      <th></th>
-		      <th></th>
-		    </tr>
-		  </thead>
-		  <tbody>
-		  	<?php
-						$query = "SELECT * FROM NGUOIDUNG";
-						$result = sqlsrv_query($conn, $query);
-						while($rows = sqlsrv_fetch_array($result)) :
-						?>
-		    <tr>
-		      <th scope="row"><?php echo $rows['MAND']; ?></th>
-		      <td><?php echo $rows['HoTen']; ?></td>
-		      <td><?php echo $rows['Email']; ?></td>
-		      <td><?php echo $rows['SDT']; ?></td>
-		      <td><?php echo $rows['VaiTro']; ?></td>
-		      <td><?php echo $rows['DiaChi']; ?></td>
-		      <td><a class="cbp-vm-icon cbp-vm-add item_add" style ="margin-top: 0px !important" href="admin_users_delete.php?cid=<?php echo $rows['MAND'];?>">Xóa người dùng</a></td>
-		      <td><a class="cbp-vm-icon cbp-vm-add item_add" style ="margin-top: 0px !important" href="admin_users_update.php?cid=<?php echo $rows['MAND'];?>">Sửa thông tin</a></td>
-
-		    </tr>
-		<?php endwhile ?>
-		  </tbody>
-		</table>
+  </div>
 </body>
 </html>

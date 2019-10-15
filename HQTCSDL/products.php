@@ -28,6 +28,8 @@ include 'connection/connection.php';
 <body>
 	<?php include('header.php') ?>
 		<!-- content-section-starts -->
+		<form action="products.php" method="get" accept-charset="utf-8">
+		</form>
 	<div class="container">
 	   <div class="products-page">
 			<div class="new-product">
@@ -38,6 +40,7 @@ include 'connection/connection.php';
 					<a href="#" class="cbp-vm-icon cbp-vm-grid cbp-vm-selected" data-view="cbp-vm-view-grid" title="grid">Grid View</a>
 					<a href="#" class="cbp-vm-icon cbp-vm-list" data-view="cbp-vm-view-list" title="list">List View</a>
 				</div>
+
 				<div class="clearfix"></div>
 				<?php
 						$query= "SELECT MaL, TenL FROM view_HANG GROUP BY MaL,TenL";
@@ -48,11 +51,11 @@ include 'connection/connection.php';
 						 	$tenloai= $rows1['TenL'];
 
 					?>
-				
+
+
 			   <label for="" name=""><?php echo $tenloai; ?></label>
 				<ul>
 					<?php
-					#where category='$cat'
 						$query1= "SELECT * FROM view_HANG where MaL='$maloai'";
 						$result1= @sqlsrv_query($conn,$query1);
 
@@ -65,7 +68,7 @@ include 'connection/connection.php';
 							<div class="view view-first">
 					   			<div class="inner_content clearfix">
 									<div class="product_image">
-										<img style="height:200px;" src="<?php echo $rows['HinhAnh']; ?>" class="img-responsive" alt=""/>
+										<img style="height:200px;" src="<?php echo $rows['HinhAnh']; ?>" class="img-responsive" alt="<?php echo $rows['TenH']; ?>"/>
 										<div class="mask">
 			                       			<div class="info">Quick View</div>
 					                  	</div>

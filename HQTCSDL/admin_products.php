@@ -2,12 +2,19 @@
 include 'connection/connection.php';
  session_start();
 
-  // if($_SESSION['name']!='admin');
-  // {
-  // 	header("location: index.php");
-  // }
+   if(isset($_SESSION['vaitro']))
+{
 
-$cat = $_REQUEST['category'];
+   if($_SESSION['vaitro']!='admin' and $_SESSION['vaitro']!='kho' and $_SESSION['vaitro']!='phucvu')
+   {
+   	header("location: account.html");
+   }
+}
+else
+{
+	header("location: account.html");
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +48,7 @@ $cat = $_REQUEST['category'];
       <div class="container">
         <div class="header-top-left">
           <ul>
-             <li><a href=""><span class="glyphicon glyphicon-user"> </span><?php //echo $_SESSION['name']; ?></a></li>
+             <li><a href=""><span class="glyphicon glyphicon-user"> </span><?php echo $_SESSION['vaitro']; ?></a></li>
               <li><a href="logout.php"><span class="glyphicon glyphicon-reply"> </span>Logout</a></li>
           </ul>
         </div>
@@ -54,6 +61,7 @@ $cat = $_REQUEST['category'];
 
 	<div class="table-responsive|table-responsive-sm|table-responsive-md|table-responsive-lg|table-responsive-xl">
 		<table class="table table-striped|table-dark|table-bordered|table-borderless|table-hover|table-sm">
+			<a href="admin.php">Trở về trang trước</a>
 		  <caption> <center>Danh sách hàng hóa</center></caption>
 		  <thead class="thead-dark|thead-light">
 		    <tr>
@@ -67,7 +75,7 @@ $cat = $_REQUEST['category'];
 		  </thead>
 		  <tbody>
 		  	<?php
-						$query = "SELECT * FROM HANG WHERE THELOAI = '$cat'";
+						$query = "SELECT * FROM HANG";
 						$result = sqlsrv_query($conn, $query);
 						while($rows = sqlsrv_fetch_array($result)) :
 						?>
@@ -76,8 +84,8 @@ $cat = $_REQUEST['category'];
 		      <td><?php echo $rows['TenH']; ?></td>
 		      <td><?php echo $rows['Gia']; ?></td>
 		      <td><?php echo $rows['SlCon']; ?></td>
-		      <td><a class="cbp-vm-icon cbp-vm-add item_add" style ="margin-top: 0px !important" href="admin_delete.php?pid=<?php echo $rows['MaH'];?>&cat=<?php echo $rows['TheLoai']; ?>">Xóa sản phẩm</a></td>
-		      <td><a class="cbp-vm-icon cbp-vm-add item_add" style ="margin-top: 0px !important" href="admin_update.php?pid=<?php echo $rows['MaH'];?>">Sửa sản phẩm</a></td>
+		      <td ><a  class="cbp-vm-icon cbp-vm-add item_add"  style ="margin-top: 0px !important; <?php if($_SESSION['vaitro']=='phucvu') echo 'display: none' ?>" href="admin_delete.php?pid=<?php echo $rows['MaH'];?>">Xóa sản phẩm</a></td>
+		      <td><a class="cbp-vm-icon cbp-vm-add item_add" style ="margin-top: 0px !important; <?php if($_SESSION['vaitro']=='phucvu') echo 'display: none' ?>" href="admin_update.php?pid=<?php echo $rows['MaH'];?>">Sửa sản phẩm</a></td>
 
 		    </tr>
 		<?php endwhile ?>

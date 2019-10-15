@@ -1,7 +1,19 @@
 <?php
 include 'connection/connection.php';
 session_start();
-// include 'redirectadmin.php';
+   if(isset($_SESSION['vaitro']))
+{
+
+   if($_SESSION['vaitro']!='admin' and $_SESSION['vaitro']!='kho' and $_SESSION['vaitro']!='phucvu')
+   {
+   	header("location: account.html");
+   }
+}
+else
+{
+	header("location: account.html");
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -34,7 +46,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
       <div class="container">
         <div class="header-top-left">
           <ul>
-            <li><a href=""><span class="glyphicon glyphicon-user"> </span><?php echo $_SESSION['name']; ?></a></li>
+            <li><a href=""><span class="glyphicon glyphicon-user"> </span><?php echo $_SESSION['vaitro']; ?></a></li>
                   <li><a href="logout.php"><span class="glyphicon glyphicon-reply"> </span>Logout</a></li>
           </ul>
         </div>
@@ -42,68 +54,42 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
       </div>
     </div>
   </div>
-	<!-- header-section-ends -->
-	<div class="banner-top">
-		<div class="container">
-			<nav class="navbar navbar-default" role="navigation">
-		    	<div class="navbar-header">
-		        	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-			        	<span class="sr-only">Toggle navigation</span>
-			        	<span class="icon-bar"></span>
-			        	<span class="icon-bar"></span>
-			        	<span class="icon-bar"></span>
-		        	</button>
-					<div class="logo">
-						<h1><a href="admin_index.php">FrizGo : Admin Page</a></h1>
-					</div>
-		    	</div>
-		    	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		        	<ul class="nav navbar-nav">
-						<li><a href="home.php">Home</a></li>
-			        	<li><a href="admin_products.php?category=books">Books</a></li>
-						<li><a href="admin_products.php?category=electronics">Electronics</a></li>
-						<li><a href="admin_products.php?category=clothes">Clothes</a></li>
-						<li><a href="contact.html">CONTACT</a></li>
-		        	</ul>
-		    	</div>
-			</nav>
-		</div>
-	</div>
 	<!-- content-section-starts -->
 	<div class="content">
 	<div class="container">
 		<div class="login-page">
 		   	<div class="col-md-6 login-right wow fadeInRight" data-wow-delay="0.4s">
-		  		<h3>ADD NEW PRODUCTS</h3>
+		  		<h3>Thêm sản phẩm mới</h3>
 				<form method="post" action="admin_addpro.php" enctype="multipart/form-data">
 				  	<div>
-						<span>Product Name<label>*</label></span>
+						<span>Tên sản phẩm<label>*</label></span>
 						<input type="text" name="name" required="required">
 				  	</div>
             		<div>
-            			<span>Product images<label>*</label></span>
+            			<span>Hình ảnh<label>*</label></span>
             			<input type="file" name="file" multiple="multiple" required="required">
             		</div>
 				  	<div>
-						<span>Product Price<label>*</label></span>
+						<span>Giá<label>*</label></span>
 						<input type="text" name="price" required="required">
 				  	</div>
 					<br>
-				  	<span>Select a Category</span>
-				  	<label class="radio-inline"><input type="radio" name="category" value="books">Books</label>
-				  	<label class="radio-inline"><input type="radio" name="category" value="electronics">Electronics</label>
-				  	<label class="radio-inline"><input type="radio" name="category" value="clothes">Clothes</label>
+				  	<span>Loại sản phẩm</span>
+				  	<?php 
+				  	$query = "SELECT * From LOAIHANG";
+				  	$result = sqlsrv_query($conn, $query);
+				  	while($rows = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)):
+				  	 ?>
+				  	<label class="radio-inline"><input type="radio" name="category" value="<?php echo $rows['MaL']; ?>"> <?php echo $rows['TenL'] ?></label>
+				  <?php endwhile ?>
     				<br><br>
-					<span>Product details (if any)<label></label></span>
+
+					<span>Chi tiết sản phẩm<label></label></span>
 					<input type="text" name="detail">
 					<br><br>
-          			<div>
-          				<span>Product year/model<label>*</label></span>
-          				<input type="text" name="year">
-          			</div>
           			<br>
           			<div>
-          				<span>Product quantity<label>*</label></span>
+          				<span>Số lượng<label>*</label></span>
           				<input type="text" name="quantity" required="required">
           			</div>
           			<br>

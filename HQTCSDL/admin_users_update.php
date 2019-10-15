@@ -1,6 +1,18 @@
 <?php
 include 'connection/connection.php';
  session_start();
+ if(isset($_SESSION['vaitro']))
+{
+
+   if($_SESSION['vaitro']!='admin' and $_SESSION['vaitro']!='kho' and $_SESSION['vaitro']!='phucvu')
+   {
+   	header("location: account.html");
+   }
+}
+else
+{
+	header("location: account.html");
+}
  
 
 $MaND = $_REQUEST['cid'];
@@ -45,7 +57,7 @@ $rows = sqlsrv_fetch_array($result);
       <div class="container">
         <div class="header-top-left">
           <ul>
-            <li><a href=""><span class="glyphicon glyphicon-user"> </span><?php echo $_SESSION['name']; ?></a></li>
+            <li><a href=""><span class="glyphicon glyphicon-user"> </span><?php echo $_SESSION['vaitro']; ?></a></li>
                   <li><a href="logout.php"><span class="glyphicon glyphicon-reply"> </span>Logout</a></li>
           </ul>
         </div>
@@ -55,6 +67,7 @@ $rows = sqlsrv_fetch_array($result);
   </div>
 	<!-- header-section-ends -->	
 	<!-- content-section-starts -->
+	<a href="admin.php">Trở về trang trước</a>
 	<div class="container">
 	   <div class="products-page">
 			<div class="products">
@@ -89,13 +102,17 @@ $rows = sqlsrv_fetch_array($result);
 							<input type="text" name="dc" value="<?php echo $rows['DiaChi']; ?>">
 							<div class="clearfix"></div>
 						</div>
+						<?php if($_SESSION['vaitro'])
+						{ ?>
 						<div class="span span4">
-							<p class="left">Vai trò</p>
+							<p class="left">Vai trò</p><br>
     						<label class="radio-inline"><input type="radio" name="vt" value="admin">Admin</label>
 					      	<label class="radio-inline"><input type="radio" name="vt" value="kho">Nhân viên kho</label>
       						<label class="radio-inline"><input type="radio" name="vt" value="khachhang">Khách hàng</label>
+      						<label class="radio-inline"><input type="radio" name="vt" value="phucvu">Nhân viên phục vụ</label>
 							<div class="clearfix"></div>
 						</div>
+					<?php } ?>
 						<script src="js/imagezoom.js"></script>
 						<!-- FlexSlider -->
 						<script defer src="js/jquery.flexslider.js"></script>

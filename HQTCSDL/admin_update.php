@@ -1,6 +1,18 @@
 <?php
 include 'connection/connection.php';
  session_start();
+ if(isset($_SESSION['vaitro']))
+{
+
+   if($_SESSION['vaitro']!='admin' and $_SESSION['vaitro']!='kho' and $_SESSION['vaitro']!='phucvu')
+   {
+   	header("location: account.html");
+   }
+}
+else
+{
+	header("location: account.html");
+}
  
 
 $MaH = $_REQUEST['pid'];
@@ -45,7 +57,7 @@ $rows = sqlsrv_fetch_array($result);
       <div class="container">
         <div class="header-top-left">
           <ul>
-            <li><a href=""><span class="glyphicon glyphicon-user"> </span><?php echo $_SESSION['name']; ?></a></li>
+            <li><a href=""><span class="glyphicon glyphicon-user"> </span><?php echo $_SESSION['vaitro']; ?></a></li>
                   <li><a href="logout.php"><span class="glyphicon glyphicon-reply"> </span>Logout</a></li>
           </ul>
         </div>
@@ -55,54 +67,58 @@ $rows = sqlsrv_fetch_array($result);
   </div>
 	<!-- header-section-ends -->	
 	<!-- content-section-starts -->
+	<a href="admin.php">Trở về trang trước</a>
 	<div class="container">
 	   <div class="products-page">
 			<div class="products">
 			</div>
 			<div class="new-product">
+
           	<form method="post" action="admin_updatepro.php" enctype="multipart/form-data">
             	<input type="hidden" name="pid" value="<?php echo $rows['MaH']; ?>">
+
 					<div class="col-md-5 zoom-grid">
 						<div class="flexslider">
 							<ul class="slides">
 								<li data-thumb="<?php echo $rows['image']; ?>">
-									<div class="thumb-image"> <img src="<?php echo $rows['HinhAnh']; ?>" data-imagezoom="true" class="img-responsive" alt="" /> </div>
+									<div class="thumb-image"> <img src="<?php echo $rows['HinhAnh']; ?>" data-imagezoom="true" class="img-responsive" alt="<?php echo $rows['MaH']; ?>" /> </div>
 								</li>
 							</ul>
 						</div>
             			<div>
-            				<span>Product Images<label>*</label></span>
+            				<span>Hình ảnh<label>*</label></span>
             				<input type="file" name="file" required="required" multiple="multiple">
             			</div>
 					</div>
           			<br>
 					<div class="col-md-7 dress-info">
             			<div class="span span2">
-              				<p class="left">Product name </p>
+              				<p class="left">Tên sản phẩm </p>
               				<input type="text" name="name" value="<?php echo $rows['TenH']; ?>" required="required">
             				<div class="clearfix"></div>
             			</div>
             			<br>
             			<div>
               				<div class="clearfix"></div>
-            				<p class="left">Product price</p>
+            				<p class="left">Giá</p>
             				<input type="text" name="price" value="<?php echo $rows['Gia']; ?>">
             			</div>
+						
+						
 						<div class="span span1">
-							<p class="left">Category</p>
-    						<label class="radio-inline"><input type="radio" name="category" value="books">Sách</label>
-					      	<label class="radio-inline"><input type="radio" name="category" value="electronics">Electronics</label>
-      						<label class="radio-inline"><input type="radio" name="category" value="clothes">Quần áo</label>
+							<p class="left">Số lượng</p>
+							<input type="text" name="quantity" value="<?php echo $rows['Gia']; ?>">
 							<div class="clearfix"></div>
 						</div>
 						<div class="span span2">
-							<p class="left">Year/model</p>
-							<input type="text" name="year" value="<?php echo $rows['year']; ?>">
-							<div class="clearfix"></div>
-						</div>
-						<div class="span span3">
-							<p class="left">Quantity</p>
-							<input type="text" name="quantity" value="<?php echo $rows['SlCon']; ?>">
+							<p class="left">Loại hàng</p>
+    						<?php 
+				  	$query = "SELECT * From LOAIHANG";
+				  	$result = sqlsrv_query($conn, $query);
+				  	while($rows = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)):
+				  	 ?>
+				  	<label class="radio-inline"><input type="radio" name="category" value="<?php echo $rows['MaL']; ?>"> <?php echo $rows['TenL'] ?></label>
+				  <?php endwhile ?>
 							<div class="clearfix"></div>
 						</div>
 						<div class="purchase">
@@ -133,11 +149,11 @@ $rows = sqlsrv_fetch_array($result);
 						<div class="reviews-tabs">
       					<!-- Main component for a primary marketing message or call to action -->
      	 				<ul class="nav nav-tabs responsive hidden-xs hidden-sm" id="myTab">
-        					<li class="test-class active"><a class="deco-none misc-class" href="#how-to">About the product</a></li>
+        					<li class="test-class active"><a class="deco-none misc-class" href="#how-to">Thông tin về sản phẩm</a></li>
       					</ul>
       					<div class="tab-content responsive hidden-xs hidden-sm">
         					<div class="tab-pane active" id="how-to">
-          						<span>Product details (if any)<label></label></span>
+          						<span>Chi tiết sản phẩm<label></label></span>
           						<br>
           						<textarea type="text" name="detail"><?php echo $rows['ChiTiet']; ?></textarea>
          						
