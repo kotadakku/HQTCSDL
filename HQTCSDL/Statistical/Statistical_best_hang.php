@@ -1,25 +1,12 @@
 
 <?php
 include '../connection/connection.php';
-// session_start();
-//    if(isset($_SESSION['vaitro']))
-// {
-
-//    if($_SESSION['vaitro']!='admin' and $_SESSION['vaitro']!='kho' and $_SESSION['vaitro']!='phucvu')
-//    {
-//      header("location:../Shop/account.php");
-//    }
-// }
-// else
-// {
-//  header("location: ../Shop/account.php");
-// }
 
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Eshop</title>
+<title>Thống kê</title>
 <link rel="stylesheet" href="">
 <link href="../css/style.css" rel="stylesheet" type="text/css" media="all" />
 <link href="../css/component.css" rel='stylesheet' type='text/css' />
@@ -74,7 +61,7 @@ include '../connection/connection.php';
 
 
                                     <?php
-                                    $sql = "SELECT * FROM view_best_Hang";
+                                    $sql = "SELECT * FROM view_best_Hang where TrangThai=1 ";
     $result = @sqlsrv_query($conn,$sql);
        while($row = @sqlsrv_fetch_array($result)):
                         ?>

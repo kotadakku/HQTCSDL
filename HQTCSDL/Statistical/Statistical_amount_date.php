@@ -1,19 +1,6 @@
 
 <?php
 include '../connection/connection.php';
-// session_start();
-//    if(isset($_SESSION['vaitro']))
-// {
-
-//    if($_SESSION['vaitro']!='admin' and $_SESSION['vaitro']!='kho' and $_SESSION['vaitro']!='phucvu')
-//    {
-//      header("location:../Shop/account.php");
-//    }
-// }
-// else
-// {
-//  header("location: ../Shop/account.php");
-// }
 
 ?>
 <!DOCTYPE html>

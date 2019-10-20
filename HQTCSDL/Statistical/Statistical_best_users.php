@@ -19,7 +19,7 @@ include '../connection/connection.php';
 <!DOCTYPE html>
 <html>
 <head>
-<title>Eshop</title>
+<title>Thống kê</title>
 <link rel="stylesheet" href="">
 <link href="../css/style.css" rel="stylesheet" type="text/css" media="all" />
 <link href="../css/component.css" rel='stylesheet' type='text/css' />
