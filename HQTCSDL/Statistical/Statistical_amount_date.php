@@ -100,6 +100,20 @@ $sql = "SELECT convert(char,NgayMua) AS date, SUM(SlMua) As units FROM DONHANG w
                                     </tr>
                                     <?php endwhile ?>
                                 </tbody>
+                                <tfoot><?php  $tsql_callSP = "{call sp_TongSlMua(  ? )}";
+            $Tong = 0.0;  
+            $params = array(   
+                             
+                             array(&$Tong, SQLSRV_PARAM_OUT)  
+                           );  
+              
+            $stmt3 = sqlsrv_query( $conn, $tsql_callSP, $params); ?>
+                                   
+                                    <tr>
+                                        <td>Tổng số</td>
+                                        <td><?php echo $Tong; ?></td>
+                                    </tr>
+                                </tfoot>
                             </table>
             </div> 
 

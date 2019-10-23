@@ -61,7 +61,7 @@ include '../connection/connection.php';
 
 
                                     <?php
-                                    $sql = "SELECT * FROM view_best_Hang where TrangThai=1 ";
+                                    $sql = "SELECT * FROM view_best_Hang ";
     $result = @sqlsrv_query($conn,$sql);
        while($row = @sqlsrv_fetch_array($result)):
                         ?>
@@ -74,6 +74,31 @@ include '../connection/connection.php';
                                     </tr>
                                     <?php endwhile ?>
                                 </tbody>
+                                <tfoot>
+                                   
+                                    <tr>
+                                        <td colspan="3">Tổng số</td>
+                                        <?php  $tsql_callSP = "{call sp_TongSlMua(  ? )}";
+            $Tong = 0.0;  
+            $params = array(   
+                             
+                             array(&$Tong, SQLSRV_PARAM_OUT)  
+                           );  
+              
+            $stmt3 = sqlsrv_query( $conn, $tsql_callSP, $params); ?>
+                                        <td><?php echo $Tong; ?></td>
+                                        <?php  $tsql_callSP = "{call sp_TongTien(  ? )}";
+            $Tong = 0.0;  
+            $params = array(   
+                             
+                             array(&$Tong, SQLSRV_PARAM_OUT)  
+                           );  
+              
+            $stmt3 = sqlsrv_query( $conn, $tsql_callSP, $params); ?>
+
+                                        <td><?php echo $Tong; ?></td>
+                                    </tr>
+                                </tfoot>
                             </table>
         </div>
     </div>    

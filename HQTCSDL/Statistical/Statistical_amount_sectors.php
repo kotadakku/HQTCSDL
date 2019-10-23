@@ -103,6 +103,20 @@ $sql = "SELECT TenL AS loai, SUM(SlMua) As units FROM view_DONHANG_LOAIH where T
                                     </tr>
                                     <?php endwhile ?>
                                 </tbody>
+                                <tfoot><?php  $tsql_callSP = "{call sp_TongSlMua(  ? )}";
+            $Tong = 0.0;  
+            $params = array(   
+                             
+                             array(&$Tong, SQLSRV_PARAM_OUT)  
+                           );  
+              
+            $stmt3 = sqlsrv_query( $conn, $tsql_callSP, $params); ?>
+                                   
+                                    <tr>
+                                        <td>Tổng số</td>
+                                        <td><?php echo $Tong; ?></td>
+                                    </tr>
+                                </tfoot>
                             </table>
         </div>
     </div>    
@@ -115,27 +129,3 @@ $sql = "SELECT TenL AS loai, SUM(SlMua) As units FROM view_DONHANG_LOAIH where T
 
 
 
-
-
-
-    
-<!-- 
-                    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-                    <script type="text/javascript">
-                        google.load("visualization", "1", {packages:["corechart"]});
-                        google.setOnLoadCallback(drawChart);
-                        function drawChart() {
-                            var data = google.visualization.arrayToDataTable([
-                            ['Loại',  'Số lượng'],
-                            <?php echo $chart ?>
-                            ]);
-                            var options = {
-                                title: 'Lượng mua',
-                                curveType: 'function',
-                                legend: { position: 'bottom' }
-                            };
-                            var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-                            chart.draw(data, options);
-                        }
-                    </script> -->
-                </div>

@@ -109,6 +109,20 @@ include '../connection/connection.php';
                                     </tr>
                                     <?php endwhile ?>
                                 </tbody>
+                                <tfoot><?php  $tsql_callSP = "{call sp_TongTien(  ? )}";
+            $Tong = 0.0;  
+            $params = array(   
+                             
+                             array(&$Tong, SQLSRV_PARAM_OUT)  
+                           );  
+              
+            $stmt3 = sqlsrv_query( $conn, $tsql_callSP, $params); ?>
+                                   
+                                    <tr>
+                                        <td>Tổng số</td>
+                                        <td><?php echo $Tong; ?></td>
+                                    </tr>
+                                </tfoot>
                             </table>
         </div>
     </div>    
